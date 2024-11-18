@@ -40,6 +40,7 @@ namespace c_project_mastermind_1_pe_Youssef_Mahtar
         {
             tijdtxt.Text = $"Seconden : {sec}";
             sec++;
+            stopCountdown();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -225,6 +226,17 @@ namespace c_project_mastermind_1_pe_Youssef_Mahtar
         private void Attempts()
         {
             this.Title = $"Mastermind Attempt: {attempts}";
+        }
+
+        private void stopCountdown()
+        {
+            if (sec > 10 )
+            {
+                MessageBox.Show("Tijd is op.");
+                sec = 0;
+                attempts++;
+                Attempts();
+            }
         }
 
     }

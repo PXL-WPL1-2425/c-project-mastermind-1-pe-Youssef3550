@@ -12,22 +12,44 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace c_project_mastermind_1_pe_Youssef_Mahtar
 {
     public partial class MainWindow : Window
     {
+        DispatcherTimer timer = new DispatcherTimer();
         private List<string> code;
         int attempts = 1;
+        string codeString = "";
+        int sec = 0;
         public MainWindow()
         {
             InitializeComponent();
             RandomKleuren();
             LabelBorder();
+            toggleDebug();
+            Attempts();
+
+            timer.Interval = new TimeSpan(0, 0, 0, 1);
+            timer.Tick += startCountdown;
+            timer.Start();
+        }
+
+        private void startCountdown(object sender, EventArgs e)
+        {
+            tijdtxt.Text = $"Seconden : {sec}";
+            sec++;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            attempts++;
+            Attempts();
+
+            sec = 0;
+
+            
             string checkKleur1 = ComboBox1.SelectedItem?.ToString() ?? "";
             string checkKleur2 = ComboBox2.SelectedItem?.ToString() ?? "";
             string checkKleur3 = ComboBox3.SelectedItem?.ToString() ?? "";
@@ -107,8 +129,7 @@ namespace c_project_mastermind_1_pe_Youssef_Mahtar
                 code.Add(randomKleur);
             }
 
-            string codeString = string.Join(", ", code);
-            this.Title = $"Mastermind ({codeString}) Attempt: {attempts}";
+            codeString = string.Join(", ", code);
 
 
             foreach (string kleur in kleuren)
@@ -181,5 +202,30 @@ namespace c_project_mastermind_1_pe_Youssef_Mahtar
             Label3.BorderThickness = new Thickness(5);
             Label4.BorderThickness = new Thickness(5);
         }
+
+        private void textBoxCode_KeyDown(object sender, KeyEventArgs e)
+        {
+            textBoxCode.Text = $"{codeString}";
+
+            if (e.Key == Key.LeftCtrl || e.Key == Key.F12 || textBoxCode.Visibility == Visibility.Visible)
+            {
+                textBoxCode.Visibility = Visibility.Hidden;
+            }
+            else if (e.Key == Key.LeftCtrl || e.Key == Key.F12 || textBoxCode.Visibility == Visibility.Hidden)
+            {
+                textBoxCode.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void toggleDebug()
+        {
+            textBoxCode.Text = $"{codeString}";
+        }
+
+        private void Attempts()
+        {
+            this.Title = $"Mastermind Attempt: {attempts}";
+        }
+
     }
 }

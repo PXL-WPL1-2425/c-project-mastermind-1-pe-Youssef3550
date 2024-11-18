@@ -18,7 +18,7 @@ namespace c_project_mastermind_1_pe_Youssef_Mahtar
     public partial class MainWindow : Window
     {
         private List<string> code;
-        int poging = 1;
+        int attempts = 1;
         public MainWindow()
         {
             InitializeComponent();
@@ -108,7 +108,7 @@ namespace c_project_mastermind_1_pe_Youssef_Mahtar
             }
 
             string codeString = string.Join(", ", code);
-            this.Title = $"Mastermind ({codeString})";
+            this.Title = $"Mastermind ({codeString}) Attempt: {attempts}";
 
 
             foreach (string kleur in kleuren)

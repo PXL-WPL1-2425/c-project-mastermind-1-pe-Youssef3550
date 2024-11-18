@@ -38,7 +38,7 @@ namespace c_project_mastermind_1_pe_Youssef_Mahtar
 
         private void startCountdown(object sender, EventArgs e)
         {
-            tijdtxt.Text = $"Seconden : {sec}";
+            tijdTextBox.Text = $"Seconden : {sec}";
             sec++;
             stopCountdown();
         }
@@ -208,11 +208,11 @@ namespace c_project_mastermind_1_pe_Youssef_Mahtar
         {
             textBoxCode.Text = $"{codeString}";
 
-            if (e.Key == Key.LeftCtrl && e.Key == Key.F12 && textBoxCode.Visibility == Visibility.Visible)
+            if (e.Key == Key.F12 && textBoxCode.Visibility == Visibility.Visible)
             {
                 textBoxCode.Visibility = Visibility.Hidden;
             }
-            else if (e.Key == Key.LeftCtrl && e.Key == Key.F12 && textBoxCode.Visibility == Visibility.Hidden)
+            else if (e.Key == Key.F12 && textBoxCode.Visibility == Visibility.Hidden)
             {
                 textBoxCode.Visibility = Visibility.Visible;
             }
